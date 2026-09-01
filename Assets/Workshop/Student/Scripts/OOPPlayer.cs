@@ -1,13 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class OOPPlayer : MonoBehaviour
+public class OOPPlayer : Character
 {
-    public string Name;
-    public int positionX;
-    public int positionY;
-    public OOPMapGenerator mapGenerator;
-
     private InputAction moveAction;
 
     public void Start()
@@ -18,8 +13,19 @@ public class OOPPlayer : MonoBehaviour
     public void Update()
     {
         Vector2 direction = moveAction.ReadValue<Vector2>();
+        if (moveAction.triggered)
+        {
+            Move(direction);
+        }
+    }
 
-        // call method Move(Vector2.up);
-        
+    public void Attack(OOPEnemy _enemy)
+    {
+        _enemy.TakeDamage(attackPoint);
+    }
+
+    protected override void CheckDead()
+    {
+        base.CheckDead();
     }
 }
